@@ -104,8 +104,22 @@
         color: #6b7280;
         font-size: 0.9rem;
 
-    }
+    }/* Glassmorphism & Card Hover Upgrade */
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #c084fc;
+    box-shadow: 0 10px 30px rgba(192, 132, 252, 0.2);
+}
 </style>
+
 </head>
 <body>
 
