@@ -39,20 +39,66 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
         }
 
-        /* Ambient Glow Background Effect */
-        body::before {
-            content: '';
+        /* Floating Ambient Orbs Background Animation */
+        .ambient-background {
             position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(52, 211, 153, 0.03) 60%, transparent 100%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             z-index: -1;
             pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--emerald-primary);
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--mint-accent);
+            top: 40%;
+            right: 15%;
+            animation-delay: -4s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: #059669;
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -8s;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(30px, -40px) scale(1.08);
+            }
+            100% {
+                transform: translate(-20px, 30px) scale(0.95);
+            }
         }
 
         h1, h2, h3 {
@@ -62,6 +108,8 @@
         header {
             text-align: center;
             padding: 80px 20px 40px 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .badge {
@@ -149,6 +197,8 @@
             max-width: 1100px;
             margin: 0 auto;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         .skills-section h2 {
@@ -204,10 +254,19 @@
             color: var(--text-muted);
             font-size: 0.9rem;
             background: rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
+
+    <!-- Floating Ambient Orbs Background -->
+    <div class="ambient-background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
 
     <header>
         <div class="badge">🚀 Welcome to Vigeoplato</div>
