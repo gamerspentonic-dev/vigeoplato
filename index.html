@@ -30,6 +30,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: default;
+        }
+
+        a, button, .social-icon, .card, .btn {
+            cursor: pointer;
         }
 
         body {
@@ -42,6 +47,36 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+        }
+
+        /* Custom Cyber Cursor Ring */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--mint-accent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+            z-index: 9999;
+            box-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+        }
+
+        .custom-cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: var(--mint-accent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 8px var(--mint-accent);
         }
 
         /* 1. Cyber Grid + Interactive Mouse Spotlight */
@@ -264,10 +299,8 @@
             transform-style: preserve-3d;
             will-change: transform;
             transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
         }
 
-        /* Inner Holographic Glare Effect */
         .card::before {
             content: '';
             position: absolute;
@@ -327,11 +360,15 @@
 </head>
 <body>
 
+    <!-- Custom Cursor Elements -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="custom-cursor-dot" id="cursor-dot"></div>
+
     <!-- Layer 1: Cyber Grid & Spotlight -->
     <div class="cyber-grid"></div>
     <div class="mouse-spotlight"></div>
 
-    <!-- Layer 2: Interactive AI Particle Network -->
+    <!-- Layer 2: AI Particle Network -->
     <canvas id="particle-canvas"></canvas>
 
     <!-- Layer 3: Shooting Neon Meteors -->
@@ -379,9 +416,74 @@
         <p>&copy; 2026 Vigeoplato | Built Live on Github</p>
     </footer>
 
-    <!-- Interactive Spotlight, 3D Card Tilt & AI Particle Network Script -->
+    <!-- Interactive Script: Custom Cursor, Click Sparkles, 3D Tilt & Particles -->
     <script>
-        // 1. 3D Holographic Card Tilt Effect
+        // Custom Cursor & Click Sparkle Effect
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${mouseY}px`);
+            
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        function renderCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.left = `${cursorX}px`;
+            cursor.style.top = `${cursorY}px`;
+            requestAnimationFrame(renderCursor);
+        }
+        renderCursor();
+
+        // Click Sparkle Burst Effect
+        window.addEventListener('click', (e) => {
+            createSparkles(e.clientX, e.clientY);
+        });
+
+        function createSparkles(x, y) {
+            const sparkleCount = 12;
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                sparkle.style.width = '6px';
+                sparkle.style.height = '6px';
+                sparkle.style.backgroundColor = '#34d399';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '99999';
+                sparkle.style.boxShadow = '0 0 10px #10b981';
+                
+                document.body.appendChild(sparkle);
+
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 80 + 30;
+                const destX = Math.cos(angle) * speed;
+                const destY = Math.sin(angle) * speed;
+
+                sparkle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 600,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                }).onfinish = () => sparkle.remove();
+            }
+        }
+
+        // 3D Holographic Card Tilt Effect
         const cards = document.querySelectorAll('.card');
 
         cards.forEach(card => {
@@ -393,7 +495,6 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
 
-                // Calculate tilt angles (max 14 degrees)
                 const rotateX = ((y - centerY) / centerY) * -14;
                 const rotateY = ((x - centerX) / centerX) * 14;
 
@@ -407,21 +508,12 @@
             });
         });
 
-        // 2. AI Particle Network & Mouse Spotlight
+        // AI Particle Network & Mouse Spotlight
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
 
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
-
-        const mouse = { x: width / 2, y: height / 2, radius: 160 };
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-            document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-            document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-        });
 
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
@@ -482,16 +574,16 @@
                     }
                 }
 
-                const dxMouse = particles[i].x - mouse.x;
-                const dyMouse = particles[i].y - mouse.y;
+                const dxMouse = particles[i].x - mouseX;
+                const dyMouse = particles[i].y - mouseY;
                 const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
-                if (distMouse < mouse.radius) {
+                if (distMouse < 160) {
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(52, 211, 153, ${0.55 * (1 - distMouse / mouse.radius)})`;
+                    ctx.strokeStyle = `rgba(52, 211, 153, ${0.55 * (1 - distMouse / 160)})`;
                     ctx.lineWidth = 1.2;
                     ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.lineTo(mouseX, mouseY);
                     ctx.stroke();
                 }
             }
