@@ -15,13 +15,15 @@
 
     <style>
         :root {
-            --bg-color: #09090b;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --border-color: rgba(255, 255, 255, 0.06);
+            --bg-color: #060709;
+            --card-bg: rgba(12, 16, 14, 0.65);
+            --border-color: rgba(52, 211, 153, 0.14);
             --emerald-primary: #10b981;
             --mint-accent: #34d399;
             --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
+            --mouse-x: 50vw;
+            --mouse-y: 50vh;
         }
 
         * {
@@ -42,62 +44,95 @@
             position: relative;
         }
 
-        /* Floating Ambient Orbs Background Animation */
-        .ambient-background {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* 1. Cyber Grid + Interactive Mouse Spotlight */
+        .cyber-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+            background-size: 45px 45px;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .mouse-spotlight {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(
+                550px circle at var(--mouse-x) var(--mouse-y),
+                rgba(16, 185, 129, 0.16),
+                rgba(52, 211, 153, 0.05) 40%,
+                transparent 80%
+            );
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* 2. AI Particle Network Canvas */
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
             width: 100%;
             height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 3. Shooting Neon Meteors */
+        .meteor-container {
+            position: fixed;
+            inset: 0;
             overflow: hidden;
             z-index: -1;
             pointer-events: none;
         }
 
-        .orb {
+        .meteor {
             position: absolute;
+            width: 160px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--mint-accent), rgba(16, 185, 129, 0.4), transparent);
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: floatOrb 12s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 8px var(--mint-accent));
+            transform: rotate(-35deg);
+            opacity: 0;
+            animation: shoot 7s linear infinite;
         }
 
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--emerald-primary);
-            top: 10%;
-            left: 20%;
-            animation-delay: 0s;
+        .meteor::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 12px 3px var(--mint-accent);
         }
 
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--mint-accent);
-            top: 40%;
-            right: 15%;
-            animation-delay: -4s;
-        }
+        .meteor:nth-child(1) { top: 10%; left: 75%; animation-delay: 0s; animation-duration: 6s; }
+        .meteor:nth-child(2) { top: 35%; left: 95%; animation-delay: 2.5s; animation-duration: 8s; }
+        .meteor:nth-child(3) { top: 5%; left: 45%; animation-delay: 4.5s; animation-duration: 7s; }
+        .meteor:nth-child(4) { top: 60%; left: 85%; animation-delay: 1.2s; animation-duration: 6.5s; }
 
-        .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: #059669;
-            bottom: 10%;
-            left: 30%;
-            animation-delay: -8s;
-        }
-
-        @keyframes floatOrb {
+        @keyframes shoot {
             0% {
-                transform: translate(0, 0) scale(1);
+                transform: translate(0, 0) rotate(-35deg);
+                opacity: 0;
             }
-            50% {
-                transform: translate(30px, -40px) scale(1.08);
+            5% {
+                opacity: 1;
+            }
+            25% {
+                transform: translate(-900px, 630px) rotate(-35deg);
+                opacity: 0;
             }
             100% {
-                transform: translate(-20px, 30px) scale(0.95);
+                transform: translate(-900px, 630px) rotate(-35deg);
+                opacity: 0;
             }
         }
 
@@ -107,31 +142,34 @@
 
         header {
             text-align: center;
-            padding: 80px 20px 40px 20px;
+            padding: 85px 20px 40px 20px;
             position: relative;
             z-index: 1;
         }
 
         .badge {
             display: inline-block;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.12);
             color: var(--mint-accent);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 6px 16px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            padding: 6px 18px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+            backdrop-filter: blur(8px);
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.3rem;
             font-weight: 700;
             letter-spacing: -0.5px;
             margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 30%, var(--mint-accent) 100%);
+            background: linear-gradient(135deg, #ffffff 35%, var(--mint-accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
         }
 
         .subtitle {
@@ -145,18 +183,18 @@
         .btn {
             display: inline-block;
             background: linear-gradient(135deg, var(--emerald-primary), var(--mint-accent));
-            color: #000;
-            font-weight: 600;
-            padding: 12px 28px;
-            border-radius: 8px;
+            color: #04130e;
+            font-weight: 700;
+            padding: 13px 30px;
+            border-radius: 10px;
             text-decoration: none;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+            box-shadow: 0 4px 25px rgba(16, 185, 129, 0.35);
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(52, 211, 153, 0.55);
         }
 
         /* Social Media Icons Bar */
@@ -164,31 +202,31 @@
             display: flex;
             justify-content: center;
             gap: 16px;
-            margin-top: 25px;
+            margin-top: 28px;
         }
 
         .social-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            background: var(--card-bg);
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
             border-radius: 50%;
             color: var(--text-main);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             text-decoration: none;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             transition: all 0.3s ease;
         }
 
         .social-icon:hover {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: var(--emerald-primary);
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--mint-accent);
             color: var(--mint-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
         }
 
         /* Skills/Cards Section */
@@ -216,8 +254,8 @@
 
         .card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 32px 24px;
@@ -225,10 +263,10 @@
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(52, 211, 153, 0.4);
-            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.12);
-            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-8px);
+            border-color: var(--mint-accent);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.2);
+            background: rgba(18, 28, 24, 0.8);
         }
 
         .card h3 {
@@ -253,7 +291,8 @@
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(4, 6, 8, 0.6);
+            backdrop-filter: blur(10px);
             position: relative;
             z-index: 1;
         }
@@ -261,11 +300,19 @@
 </head>
 <body>
 
-    <!-- Floating Ambient Orbs Background -->
-    <div class="ambient-background">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+    <!-- Layer 1: Cyber Grid & Spotlight -->
+    <div class="cyber-grid"></div>
+    <div class="mouse-spotlight"></div>
+
+    <!-- Layer 2: Interactive AI Particle Network -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Layer 3: Shooting Neon Meteors -->
+    <div class="meteor-container">
+        <div class="meteor"></div>
+        <div class="meteor"></div>
+        <div class="meteor"></div>
+        <div class="meteor"></div>
     </div>
 
     <header>
@@ -305,5 +352,102 @@
         <p>&copy; 2026 Vigeoplato | Built Live on Github</p>
     </footer>
 
+    <!-- Interactive Spotlight & AI Particle Network Script -->
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const mouse = { x: width / 2, y: height / 2, radius: 160 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        const particleCount = 55;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.size = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(52, 211, 153, 0.7)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                // Connect nearby particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(16, 185, 129, ${0.25 * (1 - dist / 130)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+
+                // Connect particles to mouse cursor
+                const dxMouse = particles[i].x - mouse.x;
+                const dyMouse = particles[i].y - mouse.y;
+                const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+                if (distMouse < mouse.radius) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(52, 211, 153, ${0.55 * (1 - distMouse / mouse.radius)})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
