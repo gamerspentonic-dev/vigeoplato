@@ -1,140 +1,234 @@
 <!DOCTYPE html>
-<html lang="en> 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, inital-scale=1.0">
-  <title>Videoplato | Gamer's Pentonic</title>
-  <style>
-    * { 
-       margin: 0;
-       padding: 0;
-       box-sizing: border-box;
-       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body { 
-        background-color: #0b0f19;
-        color: #ffffff;
-        line-height: 1.6;
-    } 
-    header {
-        min-height: 85vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
-        background: radial-gradient(circle at center, #1e14b4 0%, #0b0f19 70%);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigeoplato | Professional Portfolio</title>
+    
+    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Realistic Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    }
-    .badge {
-        background: rgba(99, 102, 241, 0.2); 
-        color: #818cf8;
-        padding: 6px 16px;
-        border-radius: 20px;
-        font-size: 0,9rem;
-        border: 1px solid #6366f1;
-        margin-bottom: 20px;
+    <style>
+        :root {
+            --bg-color: #09090b;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --emerald-primary: #10b981;
+            --mint-accent: #34d399;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+        }
 
-    }
-    h1 { 
-        font-size: 3.5rem;
-        margin-bottom: 15px;
-        background: linear-gradient(90deg, #38bdf8, #818cf8, #co84fc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    }
-    p.subtitle {
-        font-size: 1.2rem'
-        color: #94a3b8;
-        max-width: 600px;
-        margin-bottom: 30px;
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    }
-    .btn {
-        display: inline-block;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6);
-        color: white;
-        padding: 14px 32px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: transform 0.2s, box-shadow 0.2s);
+        /* Ambient Glow Background Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(52, 211, 153, 0.03) 60%, transparent 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
 
-    }
-    .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+        }
 
-    }
-    .skills-grid { 
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-        margin-top: 30px;
-      
-    }
-    .card {
-        background: #111827;
-        border: 1px solid #1f2937;
-        padding: 30px;
-        border-radius: 12px;
-        transition: border-color 0.3s;
+        header {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
 
-    }
-    .card-hover {
-        border-color: #6366f1;
+        .badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--mint-accent);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
 
-    }
-    .card h3 {
-        color: #38bdf8;
-        margin-bottom: 10px;
-        font-size: 1.4rem;
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--mint-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    }
-    .card p {
-        color: #9ca3af;
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
 
-    }
-    footer {
-        text-align: center;
-        padding: 30px;
-        border-top: 1px solid #1f2937;
-        color: #6b7280;
-        font-size: 0.9rem;
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--emerald-primary), var(--mint-accent));
+            color: #000;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+        }
 
-    }/* Glassmorphism & Card Hover Upgrade */
-.card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
+        }
 
-.card:hover {
-    transform: translateY(-8px);
-    border-color: #c084fc;
-    box-shadow: 0 10px 30px rgba(192, 132, 252, 0.2);
-}
-</style>
+        /* Social Media Icons Bar */
+        .social-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 25px;
+        }
 
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--emerald-primary);
+            color: var(--mint-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Skills/Cards Section */
+        .skills-section {
+            padding: 40px 20px 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .skills-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px 24px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(52, 211, 153, 0.4);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="badge">🚀 Welcome to VigeoPlato</div>
+        <div class="badge">🚀 Welcome to Vigeoplato</div>
         <h1>Gamer's Pentonic</h1>
         <p class="subtitle">Next-Gen Video Editing, Gaming Content & Smart AI Automation.</p>
         <a href="#work" class="btn">Explore My Work</a>
+
+        <!-- Realistic Glass Social Icons Bar -->
+        <div class="social-bar">
+            <a href="https://www.instagram.com/alok_slayer71/" target="_blank" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@GamersPentonic" target="_blank" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://discord.gg/wbMtMXTfZ" target="_blank" class="social-icon" title="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="https://github.com/gamerspentonic-dev" target="_blank" class="social-icon" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
     </header>
 
     <section class="skills-section" id="work">
-        <h2 style="text-align: center; font-size: 2rem;">what I Do</h2>
+        <h2>What I Do</h2>
         <div class="skills-grid">
             <div class="card">
-                <h3>🎬Pro Video Editing & VFX</h3>
+                <h3>🎬 Pro Video Editing & VFX</h3>
                 <p>High-retention edits, visual effects, and motion graphics crafted using Premiere Pro and After Effects.</p>
             </div>
             <div class="card">
@@ -145,14 +239,12 @@
                 <h3>🤖 AI & Workflow Automation</h3>
                 <p>Smart automated systems connecting forms, sheets, and AI to handle leads in real-time.</p>
             </div>
-        </div>  
+        </div>
     </section>
 
     <footer>
-        <p>Ⓒ 2026 Vigeoplato | Built Live on Github</p>
+        <p>&copy; 2026 Vigeoplato | Built Live on Github</p>
     </footer>
 
 </body>
 </html>
-
-    </footer>
