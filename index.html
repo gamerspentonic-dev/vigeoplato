@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vigeoplato | Professional Portfolio</title>
+    <title>Vigeoplato | Gamer's Pentonic</title>
     
+    <!-- Custom Neon Emerald Favicon for Browser Tab -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23060709' stroke='%2334d399' stroke-width='6'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-size='55'>⚡</text></svg>">
+
     <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -219,7 +222,10 @@
             line-height: 1.6;
         }
 
+        /* Shimmering Primary Button */
         .btn {
+            position: relative;
+            overflow: hidden;
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -231,6 +237,23 @@
             text-decoration: none;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 4px 25px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-25deg);
+            animation: btnShine 4s infinite;
+        }
+
+        @keyframes btnShine {
+            0% { left: -120%; }
+            25%, 100% { left: 160%; }
         }
 
         .btn:hover {
@@ -373,7 +396,7 @@
             transition: transform 0.2s ease;
         }
 
-        /* NEW: Let's Collaborate Glowing CTA Section */
+        /* Enhanced Let's Collaborate Glowing CTA Section */
         .collab-section {
             padding: 20px 20px 100px 20px;
             max-width: 1100px;
@@ -385,24 +408,59 @@
 
         .collab-box {
             position: relative;
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.1) 0%, rgba(12, 16, 14, 0.85) 50%, rgba(52, 211, 153, 0.08) 100%);
-            border: 1px solid rgba(52, 211, 153, 0.3);
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.11) 0%, rgba(10, 14, 12, 0.9) 50%, rgba(52, 211, 153, 0.09) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.35);
             border-radius: 24px;
-            padding: 55px 30px;
+            padding: 55px 30px 45px 30px;
             text-align: center;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(16, 185, 129, 0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(16, 185, 129, 0.14);
             overflow: hidden;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Interactive Spotlight inside Collab Box */
+        .collab-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                500px circle at var(--collab-x, 50%) var(--collab-y, 50%),
+                rgba(52, 211, 153, 0.16),
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* Top Neon Laser Line Accent */
+        .collab-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 55%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--mint-accent), transparent);
+            box-shadow: 0 0 15px var(--mint-accent);
         }
 
         .collab-box:hover {
             border-color: var(--mint-accent);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 55px rgba(52, 211, 153, 0.22);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 60px rgba(52, 211, 153, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .collab-box:hover::before {
+            opacity: 1;
         }
 
         .status-pill {
+            position: relative;
+            z-index: 1;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -431,6 +489,8 @@
         }
 
         .collab-box h2 {
+            position: relative;
+            z-index: 1;
             font-size: 2.4rem;
             margin-bottom: 14px;
             background: linear-gradient(135deg, #ffffff 40%, var(--mint-accent) 100%);
@@ -439,6 +499,8 @@
         }
 
         .collab-box p {
+            position: relative;
+            z-index: 1;
             color: var(--text-muted);
             font-size: 1.05rem;
             max-width: 580px;
@@ -447,10 +509,38 @@
         }
 
         .collab-actions {
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 16px;
+        }
+
+        /* Mini Feature Perks inside Collab Box */
+        .collab-perks {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(52, 211, 153, 0.14);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .collab-perks span {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .collab-perks i {
+            color: var(--mint-accent);
         }
 
         /* Scroll to Top Glowing Button */
@@ -559,9 +649,9 @@
         </div>
     </section>
 
-    <!-- NEW: Let's Collaborate CTA Banner -->
+    <!-- Final Polished Let's Collaborate CTA Banner -->
     <section class="collab-section" id="collab">
-        <div class="collab-box">
+        <div class="collab-box" id="collabBox">
             <div class="status-pill">
                 <span class="pulse-dot"></span> Available for Projects & Collabs
             </div>
@@ -574,6 +664,11 @@
                 <a href="https://www.instagram.com/alok_slayer71/" target="_blank" class="btn-outline">
                     <i class="fa-brands fa-instagram"></i> DM on Instagram
                 </a>
+            </div>
+            <div class="collab-perks">
+                <span><i class="fa-solid fa-bolt"></i> Fast Turnaround</span>
+                <span><i class="fa-solid fa-wand-magic-sparkles"></i> High-Retention Edits</span>
+                <span><i class="fa-solid fa-robot"></i> Smart AI Workflows</span>
             </div>
         </div>
     </section>
@@ -648,7 +743,7 @@
             }
         }
 
-        // Scroll to Top Button Logic (Lower threshold so it appears smoothly on scroll)
+        // Scroll to Top Button Logic
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 180) {
@@ -685,6 +780,14 @@
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
             });
+        });
+
+        // Interactive Glare inside Collab Box
+        const collabBox = document.getElementById('collabBox');
+        collabBox.addEventListener('mousemove', (e) => {
+            const rect = collabBox.getBoundingClientRect();
+            collabBox.style.setProperty('--collab-x', `${e.clientX - rect.left}px`);
+            collabBox.style.setProperty('--collab-y', `${e.clientY - rect.top}px`);
         });
 
         // AI Particle Network & Mouse Spotlight
