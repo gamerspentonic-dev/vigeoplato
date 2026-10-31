@@ -26,6 +26,10 @@
             --mouse-y: 50vh;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -33,7 +37,7 @@
             cursor: default;
         }
 
-        a, button, .social-icon, .card, .btn, .scroll-top {
+        a, button, .social-icon, .card, .btn, .btn-outline, .scroll-top {
             cursor: pointer;
         }
 
@@ -177,7 +181,7 @@
 
         header {
             text-align: center;
-            padding: 85px 20px 40px 20px;
+            padding: 100px 20px 50px 20px;
             position: relative;
             z-index: 1;
         }
@@ -197,10 +201,10 @@
         }
 
         header h1 {
-            font-size: 3.3rem;
+            font-size: 3.4rem;
             font-weight: 700;
             letter-spacing: -0.5px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             background: linear-gradient(135deg, #ffffff 35%, var(--mint-accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -211,12 +215,14 @@
             color: var(--text-muted);
             font-size: 1.1rem;
             max-width: 600px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 32px auto;
             line-height: 1.6;
         }
 
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background: linear-gradient(135deg, var(--emerald-primary), var(--mint-accent));
             color: #04130e;
             font-weight: 700;
@@ -232,12 +238,35 @@
             box-shadow: 0 8px 30px rgba(52, 211, 153, 0.55);
         }
 
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            font-weight: 600;
+            padding: 13px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            backdrop-filter: blur(12px);
+            transition: all 0.25s ease;
+        }
+
+        .btn-outline:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--mint-accent);
+            color: var(--mint-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        }
+
         /* Social Media Icons Bar */
         .social-bar {
             display: flex;
             justify-content: center;
             gap: 16px;
-            margin-top: 28px;
+            margin-top: 30px;
         }
 
         .social-icon {
@@ -266,7 +295,7 @@
 
         /* Skills/Cards Section with 3D Tilt */
         .skills-section {
-            padding: 40px 20px 80px 20px;
+            padding: 50px 20px 60px 20px;
             max-width: 1100px;
             margin: 0 auto;
             width: 100%;
@@ -277,7 +306,7 @@
         .skills-section h2 {
             text-align: center;
             font-size: 2.2rem;
-            margin-bottom: 40px;
+            margin-bottom: 42px;
             font-weight: 600;
         }
 
@@ -295,7 +324,7 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 34px 26px;
+            padding: 36px 26px;
             transform-style: preserve-3d;
             will-change: transform;
             transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -342,6 +371,86 @@
             line-height: 1.6;
             transform: translateZ(20px);
             transition: transform 0.2s ease;
+        }
+
+        /* NEW: Let's Collaborate Glowing CTA Section */
+        .collab-section {
+            padding: 20px 20px 100px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .collab-box {
+            position: relative;
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.1) 0%, rgba(12, 16, 14, 0.85) 50%, rgba(52, 211, 153, 0.08) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 24px;
+            padding: 55px 30px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(16, 185, 129, 0.12);
+            overflow: hidden;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .collab-box:hover {
+            border-color: var(--mint-accent);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 55px rgba(52, 211, 153, 0.22);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            color: var(--mint-accent);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--mint-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--mint-accent);
+            animation: pulseGlow 1.8s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.35); opacity: 0.6; }
+        }
+
+        .collab-box h2 {
+            font-size: 2.4rem;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff 40%, var(--mint-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .collab-box p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 580px;
+            margin: 0 auto 32px auto;
+            line-height: 1.6;
+        }
+
+        .collab-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         /* Scroll to Top Glowing Button */
@@ -450,6 +559,25 @@
         </div>
     </section>
 
+    <!-- NEW: Let's Collaborate CTA Banner -->
+    <section class="collab-section" id="collab">
+        <div class="collab-box">
+            <div class="status-pill">
+                <span class="pulse-dot"></span> Available for Projects & Collabs
+            </div>
+            <h2>Have a Project or Collab in Mind?</h2>
+            <p>Whether you need high-retention video edits, gaming content collaborations, or smart AI automation workflows—let's build something crazy together.</p>
+            <div class="collab-actions">
+                <a href="https://discord.gg/wbMtMXTfZ" target="_blank" class="btn">
+                    <i class="fa-brands fa-discord"></i> Join My Discord
+                </a>
+                <a href="https://www.instagram.com/alok_slayer71/" target="_blank" class="btn-outline">
+                    <i class="fa-brands fa-instagram"></i> DM on Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <p>&copy; 2026 Vigeoplato | Built Live on Github</p>
     </footer>
@@ -520,10 +648,10 @@
             }
         }
 
-        // Scroll to Top Button Logic
+        // Scroll to Top Button Logic (Lower threshold so it appears smoothly on scroll)
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
+            if (window.scrollY > 180) {
                 scrollTopBtn.classList.add('show');
             } else {
                 scrollTopBtn.classList.remove('show');
